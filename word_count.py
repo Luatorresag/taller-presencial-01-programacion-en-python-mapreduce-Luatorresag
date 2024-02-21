@@ -13,8 +13,18 @@
 #     ('text2.txt'. 'hypotheses.')
 #   ]
 #
+import glob   #Libreria que permite leer el contenido de los directorios o de los archivos
+import fileinput  #Libreria que permite iterar y operar en archivos
+
 def load_input(input_directory):
-    pass
+    sequence = []  # Crea una lista vacia
+    filenames = glob.glob(input_directory + "/*")  #Regresa el nombre del archivo
+    with fileinput.input (files=filenames) as f: #Crea una lista de los archivos
+        for line in f:  #linea por linea de los archivos contenidos en el objeto f
+            sequence.append((fileinput.filename(), line)) 
+
+    return sequence
+
 
 
 #
@@ -29,8 +39,16 @@ def load_input(input_directory):
 #     ...
 #   ]
 #
+
 def mapper(sequence):
-    pass
+    new_sequence = []
+    for _, text in sequence:
+        words= text.split()
+        for word in words:
+            new_sequence.append((word, 1))
+    return new_sequence
+
+
 
 
 #
@@ -45,7 +63,14 @@ def mapper(sequence):
 #   ]
 #
 def shuffle_and_sort(sequence):
-    pass
+    sorted_sequence = sorted(sequence, key=lambda x: x[0])
+    return sorted_sequence
+
+sequence = load_input("input")
+sequence = mapper(sequence)
+sequence = shuffle_and_sort(sequence)
+print(sequence)
+
 
 
 #
@@ -93,8 +118,8 @@ def job(input_directory, output_directory):
     pass
 
 
-if __name__ == "__main__":
-    job(
-        "input",
-        "output",
-    )
+""" # if __name__ == "__main__":
+#    job(
+#       "input",
+#        "output",
+#   ) """
