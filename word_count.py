@@ -13,8 +13,6 @@ def load_input(input_directory):
 
     return sequence
 
-
-
 def mapper(sequence):
     new_sequence=[] # lista vacia
     for _, text in sequence: # raya el piso sirve para que deje el ultimo valor de la dupla 
